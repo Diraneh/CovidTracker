@@ -9,6 +9,7 @@ $db = $wpdb->prefix. "db_covid";
 $query ="CREATE TABLE $db(
 id int(6) NOT NULL AUTO_INCREMENT,
 code varchar(30) ,
+
 nom varchar(30),
 hospitalises int(30),
 reanimation int(30),
@@ -37,7 +38,7 @@ function Insertion($code,$nom,$hospitalises,$reanimation,$nouvellesHospitalisati
 
 
 
-function affichage(){
+function allregions(){
 
     $contenu='<table >';
     $contenu.='<tr>';
@@ -46,7 +47,7 @@ function affichage(){
     $contenu.='<th>nouvellesHospitalisations</th>';
     $contenu.='</tr>';
     global $wpdb;
-    $resultats = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}db_covid") ;
+    $resultats = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}db_covid WHERE code LIKE 'reg%'") ;
     // Parcours des resultats obtenus
     foreach ($resultats as $affiche) {
     
@@ -62,23 +63,43 @@ function affichage(){
     return  $contenu;
 
 }
+
+
+
+
+
+
+
+function Departementts(){
+
+    $contenu='<table >';
+    $contenu.='<tr>';
+    $contenu.='<th>Departement</th>';
+    $contenu.='<th>hospitalises</th>';
+    $contenu.='<th>nouvellesHospitalisations</th>';
+    $contenu.='</tr>';
+    global $wpdb;
+    $resultats = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}db_covid WHERE code LIKE 'Dep%'") ;
+    // Parcours des resultats obtenus
+    foreach ($resultats as $affiche) {
+    
+        $contenu.='<tr>';
+        $contenu.='<td>'.$affiche->nom.'</td>';
+        $contenu.='<td>'.$affiche->hospitalises.'</td>';
+        $contenu.='<td>'.$affiche->nouvellesHospitalisations.'</td>';
+        $contenu.='</tr>';
+      
+    
+    }
+    
+    return  $contenu;
+
+}
+
+
+
     
        ?>
 
 
-        <select name="choix">
-        <option value="">Choisir  une région
-        
-        <option value="departement">le nombre de personnes hospitalises</option>
-        <option value="region">le nombre de personnes en réaanimation</option>
-        <option value="departements">le nombre de nouvelles hospitalisations</option>
-        <option value="departement">le nombre de personnes personnes en réanimation</option>
-        <option value="region">le nombre de personnes décédés</option>
-        <option value="departements">le nombre de personnes guéries </option>
-       
-    </select>
-    <input type="text" size="30" name="display" id="display" />
-           <button >Recherche</button>
-    
-    
         

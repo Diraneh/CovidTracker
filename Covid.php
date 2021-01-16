@@ -40,6 +40,25 @@ function my_admin_page_contents() {
         <form action="" method="POST">
           <button type="button" class="btn btn-success" value="action" name="ajouter">Upload</button>
         </form>
+
+        
+       
+    <h3>Please choose an option to generete a shortcode</h3>
+  
+<select name="choix" id="choose">
+<option value="1">--Please choose an option--</option>
+<option value="Departement">Departement</option>
+<option value="regions">Région</option>
+
+
+</select>
+<button onclick="selection()">Valider</button>
+<div id="code"></div>
+
+
+
+    
+    
     <?php
 
     
@@ -80,20 +99,43 @@ if(isset($_POST['ajouter'])=='action'){
     curl_close($curl);
     }
 
-    function tbare_wordpress_plugin_demo() {
-        $Content = affichage();
+    function tbare_wordpress_plugin_allregions() {
+        $Content = allregions();
         
         return $Content;
         }
-        add_shortcode('regions', 'tbare_wordpress_plugin_demo');
+ add_shortcode('regions', 'tbare_wordpress_plugin_allregions');
+ 
 
+
+
+ 
+ function tbare_wordpress_plugin_Departements() {
+    $Content =Departementts();
+    
+    return $Content;
+    }
+add_shortcode('Departement', 'tbare_wordpress_plugin_Departements');
 
 
 ?>
 
 
 
+<script>
 
 
+function selection(){
+var e = document.getElementById("choose").value;
+
+if(e != "1") {
+document.getElementById('code').innerHTML="["+e+"]";
+
+}
+
+}
+
+
+</script>
 
  
